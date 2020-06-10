@@ -1,19 +1,40 @@
 <html>
-<head>
+  <head>
     <script src="/header/index.js" type="text/javascript"></script>
-    <script>
-        function onLoad() {
-            if(document.getElementById('dboard-header') === '')
-                window.location.replace('https://deboard-dev.luxoft.com')
 
-            document.getElementById('user').innerHTML = 'User: tmp. stub'
-        }
+    <script>
+      const getUserProfile = async () => {
+        const res = fetch("/api/profile/current");
+        if (!res.ok) return;
+
+        const data = JSON.stringify(await res.json());
+        document.getElementById("user-profile").innerHTML = data;
+        document.getElementById("user-profile").style.display = "block";
+      };
     </script>
-</head>
-  
-<body onload="onLoad()">
-    <div id='dboard-header'></div>
-    <div id='user'>...</div>
-    <script>addDBoardHeader("dboard-header")</script>
-</body>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      #user-profile {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="dboard-header"></div>
+    <div id="user-profile"></div>
+    <script>
+      try {
+        addDBoardHeader("dboard-header");
+        getUserProfile();
+      } catch (e) {
+        window.location.replace("https://dboard-dev.luxoft.com");
+      }
+    </script>
+  </body>
 </html>
