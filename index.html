@@ -4,7 +4,7 @@
 
     <script>
       const getUserProfile = async () => {
-        const res = fetch("/api/profile/current");
+        const res = await fetch("/api/profile/current");
         if (!res.ok) return;
 
         const data = JSON.stringify(await res.json());
@@ -16,6 +16,8 @@
     <style>
       html,
       body {
+        margin: 0;
+        padding: 0;
         height: 100%;
       }
 
